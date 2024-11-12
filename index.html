@@ -6,14 +6,33 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
     <link href="./styles.css" rel="stylesheet">
     <title>Hello World!</title>
+    <style>
+      .container {
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-
-    <!-- You can also require other files to run in this process -->
+    <div class="container">
+      <div class="form-group">
+        <input type="text" id="appkey" name="appkey" placeholder="Your appkey" required>
+      </div>
+      <div class="form-group form-group--buttons">
+        <button id="init">Init</button>
+        <button id="uninit">Uninit</button>
+      </div>
+      <div class="form-group">
+        <input type="text" id="account" name="account" placeholder="Your account ID" required>
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" name="password" placeholder="Password" required>
+      </div>
+      <div class="form-group form-group--buttons">
+        <button id="login">Login</button>
+        <button id="logout">Logout</button>
+      </div>
+    </div>
     <script src="./renderer.js"></script>
   </body>
 </html>
