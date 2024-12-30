@@ -20,6 +20,6 @@
     "electron": "^33.2.1"
   },
   "dependencies": {
-    "node-nim": "^10.6.1"
+    "node-nim": "^10.7.0"
   }
 }
