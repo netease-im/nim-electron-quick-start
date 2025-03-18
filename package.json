@@ -17,7 +17,7 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^35.0.1"
+    "electron": "^35.0.2"
   },
   "dependencies": {
     "node-nim": "^10.8.0"
