@@ -6,40 +6,41 @@
  * to expose Node.js functionality from the main process.
  */
 
-const { v2 } = require('node-nim')
+const { V2NIMClient } = require('node-nim')
 
 window.onload = () => {
+  const client = new V2NIMClient()
   document.getElementById('init').onclick = () => {
     const appkey = document.getElementById('appkey').value
-    const result = v2.init({ appkey })
+    const result = client.init({ appkey })
     if (result) {
       console.error(`[nim] failed to initialize NIM SDK, result: ${result}`)
     } else {
-      v2.loginService.on('loginStatus', (status) => {
+      client.loginService.on('loginStatus', (status) => {
         // 登录状态变更回调
         console.log(`[nim] login status changed: ${status}`)
       })
-      v2.loginService.on('loginFailed', (error) => {
+      client.loginService.on('loginFailed', (error) => {
         // 登陆失败状态回调
         console.error(`[nim] login failed: ${JSON.stringify(error)}`)
       })
-      v2.loginService.on('kickedOffline', (details) => {
+      client.loginService.on('kickedOffline', (details) => {
         // 被踢下线回调
         console.warn(`[nim] kicked offline: ${details}`)
       })
-      v2.loginService.on('connectStatus', (connectStatus) => {
+      client.loginService.on('connectStatus', (connectStatus) => {
         // 连接状态变更回调
         console.log(`[nim] connect status changed: ${connectStatus}`)
       })
-      v2.loginService.on('disconnected', (error) => {
+      client.loginService.on('disconnected', (error) => {
         // 断开连接回调
         console.warn(`[nim] disconnected: ${JSON.stringify(error)}`)
       })
-      v2.loginService.on('connectFailed', (error) => {
+      client.loginService.on('connectFailed', (error) => {
         // 连接失败回调
         console.error(`[nim] connect failed: ${JSON.stringify(error)}`)
       })
-      v2.loginService.on('dataSync', (syncType, syncState, error) => {
+      client.loginService.on('dataSync', (syncType, syncState, error) => {
         // 数据同步回调
         console.log(`[nim] data sync: ${syncType}, ${syncState}, ${JSON.stringify(error)}`)
       })
@@ -47,7 +48,7 @@ window.onload = () => {
     }
   }
   document.getElementById('uninit').onclick = () => {
-    const result = v2.uninit()
+    const result = client.uninit()
     if (result) {
       console.error(`[nim] failed to uninitialize NIM SDK, result: ${result}`)
     } else {
@@ -58,14 +59,14 @@ window.onload = () => {
     const account = document.getElementById('account').value
     const password = document.getElementById('password').value
     try {
-        await v2.loginService.login(account, password, {})
+        await client.loginService.login(account, password, {})
     } catch (error) {
         console.error(`[nim] failed to login, error: ${JSON.stringify(error)}`)
     }
   }
   document.getElementById('logout').onclick = async () => {
     try {
-        await v2.loginService.logout()
+        await client.loginService.logout()
     } catch (error) {
         console.error(`[nim] failed to logout, error: ${JSON.stringify(error)}`)
     }
